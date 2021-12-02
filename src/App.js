@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Routes, Route, Link } from "react-router-dom";
+
+//Components
+import Home from "./Home";
+import About from "./About";
+import Projects from "./Projects";
+import User from "./User";
+import Error from "./Error";
 
 function App() {
+  const user = { name: "jaime", admin: true, id: "00044404040" };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Link to="/">Home</Link>
+      <br />
+      <Link to="/projects">Projects</Link>
+      <br />
+      <Link to="/about">About</Link>
+      <br />
+      <Link to={`/user/${user.id}`}>Go to user</Link>
+
+      <Routes>
+        <Route exact path="/" render={() => <Home />} />
+        <Route exact path="/user/:id" render={() => <User />} />
+        <Route exact path="/about" render={() => <About />} />
+        <Route exact path="/projects" render={() => <Projects user={user} />} />
+        <Route render={() => <Error />} />
+      </Routes>
     </div>
   );
 }
